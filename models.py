@@ -19,8 +19,6 @@ class InstaUserCred(models.Model):
     user                 = models.ForeignKey(User, related_name='creds', on_delete=models.CASCADE)
 
 
-
-
 class Insta_tag(models.Model):
     class Meta(object):
         verbose_name = u"Tag"
@@ -57,61 +55,6 @@ class InstaUser(models.Model):
     is_private           = models.CharField(max_length=256, blank=True, null= True)
 
 
-class InstaBotTask(models.Model):
-    class Meta(object):
-        verbose_name = u"Task"
-        verbose_name_plural = u"Tasks"
-    def __unicode__(self):
-        return u"%s" % (self.task_id)
-
-    task_id     = models.CharField(max_length = 256, blank = True,  verbose_name = u"Task id", primary_key = True)
-    operation   = models.CharField(max_length = 256, blank = False, verbose_name = u"Operation", null = True)
-    username    = models.CharField(max_length = 256, blank = True, verbose_name=u"User_login", null= True)
-    status      = models.CharField(max_length = 256, blank = True, verbose_name=u"Status", null= True)
-    create_time = models.CharField(max_length = 256, blank = True, verbose_name=u"Create time", null= True)
-    count       = models.CharField(max_length = 256, blank = True, verbose_name=u"Count", null= True)
-    #args        = models.CharField(max_length = 256, blank = False, verbose_name=u"Args", null= True)
-
-class Task_to_user_map(models.Model):
-    class Meta(object):
-        verbose_name = u"Task_to_user_map"
-        verbose_name_plural = u"Task_to_user_maps"
-    def __unicode__(self):
-        return u"%s" % (self.task_id)
-
-    map_id =  models.AutoField(primary_key=True)
-    task_id = models.ForeignKey(InstaBotTask, on_delete = models.CASCADE)
-    user_id = models.ForeignKey(InstaUser,     on_delete = models.CASCADE,  null= True)
-    #user_name = models.CharField(max_length=256, blank=False, verbose_name=u"User_login", null= True)
-
-
-
-class TaskTarget(models.Model):
-    class Meta(object):
-        verbose_name = u"Task_to_arg_map"
-        verbose_name_plural = u"Task_to_arg_maps"
-    def __unicode__(self):
-        return u"%s" % (self.task_id)
-
-    map_id    =  models.AutoField(primary_key=True)
-    task      = models.ForeignKey(InstaBotTask, related_name='targets', on_delete = models.CASCADE)
-    user_name = models.CharField(max_length=256, blank=True, verbose_name=u"User_name", null= True)
-    tag_name  = models.CharField(max_length=256, blank=True, verbose_name=u"Tag_name",  null=True)
-    photo_id  = models.CharField(max_length=256, blank=True, verbose_name=u"Photo_id",  null=True)
-
-class Relationship(models.Model):
-    class Meta(object):
-        verbose_name = u"Relationship"
-        verbose_name_plural = u"Relationships"
-    def __unicode__(self):
-        return u"%s..." % (self.rel_id)
-
-    rel_id           = models.AutoField(primary_key=True)
-    followed_user_id = models.CharField(max_length=256, blank=False, verbose_name=u"Followed user id", null= True)
-    user_id          = models.CharField(max_length=256, blank=False, verbose_name=u"User id", null= True)
-    #kind             = models.CharField(max_length=256, blank=False, verbose_name=u"Relation kind", null= True)
-
-
 
 class InstaMedia(models.Model):
     class Meta(object):
@@ -139,9 +82,6 @@ class InstaMediaSRC(models.Model):
     insta_media         = models.ForeignKey(InstaMedia, related_name='srcs', on_delete=models.CASCADE)
 
 
-
-
-    #images_tags =  models.ManyToManyField(Insta_tag)
 
 class InstaShopItem(models.Model):
     class Meta(object):
